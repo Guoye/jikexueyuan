@@ -1,1 +1,2 @@
-# jikexueyuan
+# jikexueyuan 张老师
+包括每个作业说明、作业考查点、作业相关资源
