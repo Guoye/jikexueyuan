@@ -6,9 +6,15 @@
 
 #考查点
 css多种垂直、水平居中方式的应用，可以涉及到以下属性
+
 text-align
+
 line-height
+
 margin
+
 table-cell
+
 position
+
 flex
