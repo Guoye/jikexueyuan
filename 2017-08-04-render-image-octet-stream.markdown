@@ -1,0 +1,46 @@
+#### 通过请求获取二进制流(图片)并渲染图片
+##### 通用写法
+```
+var btn = document.getElementById("btn") ,
+    addr = document.getElementById("v") ;
+
+btn.addEventListener("click", function(evt){
+	var xhr = new XMLHttpRequest() ,
+		val = addr.textContent ;
+	xhr.onload = function() {
+		var objectURL = URL.createObjectURL(this.response),
+			img = document.createElement("img");
+		img.src = objectURL;
+		img.height = 60;
+		img.onload = function(e) {
+			window.URL.revokeObjectURL(this.src);
+		};
+		document.body.appendChild(img) ;
+	} ;
+	xhr.open("POST", val);
+//	xhr.responseType = "blob";
+	xhr.send(null);
+}, false) ;
+```
+示例：https://jsfiddle.net/Guoye/r1ae61uf/
+##### Angular写法
+```
+//html
+<img [src]="imgUrl">
+
+//ts
+getImg() {
+        const host = 'http://localhost:8083/';
+        const url2 = host + 'api/bpm-extend/repository/process-definitions/myEclipseDemo:7:227504/diagram-resource';
+        let firstheaders = new Headers();
+        firstheaders.append('Content-Type', 'image/png');
+        const opts: RequestOptionsArgs = {
+            headers: firstheaders,
+            responseType: 3
+        }
+        this.http.get(url2, opts).map((resp) => resp.json()).catch((err) => {throw err;})
+            .subscribe((val) => {
+                this.imgUrl = this.sanitizer.bypassSecurityTrustUrl( window.URL.createObjectURL(val) );
+        })
+    }
+```
