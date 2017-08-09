@@ -1,4 +1,5 @@
 #### 通过请求获取二进制流(图片)并渲染图片
+#### render-image-octet-stream
 ##### 通用写法
 ```
 var btn = document.getElementById("btn") ,
