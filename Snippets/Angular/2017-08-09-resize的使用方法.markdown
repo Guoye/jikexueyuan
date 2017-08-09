@@ -1,12 +1,12 @@
 #### 在angular使用resize的方法有2种，如下
-```
+```typescript
 <div (window:resize)="onResize($event)"
 onResize(event) {
   event.target.innerWidth;
 }
 ```
 or
-```
+```typescript
 @HostListener('window:resize', ['$event'])
 onResize(event) {
   event.target.innerWidth;
