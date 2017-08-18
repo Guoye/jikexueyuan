@@ -1,0 +1,11 @@
+#### 2017-08-09-textarea换行后，在前端渲染时能表现出换行
+
+```javascript
+function line2br(text){
+ return text.split('\n').join('<br/>');
+}
+
+function line2br(text){
+    $('<div>').text(text).html().split('\n').join('<br>');
+}
+```
