@@ -1,0 +1,29 @@
+### 运行startup.bat后，一个窗口一闪而过的问题，但是从来没去纠正怎样修改配置才是正确的
+- 可以右键点击startup.bat，编辑，在文本的最后敲上pause，保存后重新运行startup.bat，这时候窗口不会再一闪而过，而是停留在桌面上（调试成功，把pause去掉即可）。
+- 如果有错误信息，这时候会显示出来，可以再根据它的错误提示，上网搜索对应的解决办法，下面是在错误提示窗口遇到过的问题：
+一、 Neither the JAVA_HOME nor the JRE_HOME environment variable is defined
+- Tomcat的startup.bat，它调用了catalina.bat,而catalina.bat则调用了setclasspath.bat，只要在setclasspath.bat的开头声明环境变量（红色两行）就可以了，原因是后来较新版本安装完不会自动登记环境变量JAVA_HOME，JRE_HOME。
+给setclasspath.bat的开头添加红色标记部分，如下：
+```
+rem ---------------------------------------------------------------------------
+rem Set CLASSPATH and Java options
+rem
+rem $Id: setclasspath.bat 505241 2007-02-09 10:22:58Z jfclere $
+rem ---------------------------------------------------------------------------
+rem 把这里加上去-----
+set JAVA_HOME=C:\Program Files\Java\jdk1.6.0_20
+set JRE_HOME=C:\Program Files\Java\jre6
+rem 把这里加上去-----
+
+rem Make sure prerequisite environment variables are set
+if not "%JAVA_HOME%" == "" goto gotJdkHome
+if not "%JRE_HOME%" == "" goto gotJreHome
+echo Neither the JAVA_HOME nor the JRE_HOME environment variable is defined
+echo At least one of these environment variable is needed to run this program
+goto exit
+```
+- 这样在每次运行startup.bat时就自动注册了JAVA_HOME，JRE_HOME。
+运行startup.bat，提示“信息：Server startup in xxxxx ms”  OK 大功告成。
+
+- 二、Cannot find ""d:\apache-tomcat-6.0.32"\bin\setclasspath.bat"
+这个时候，可能是CATALINA_HOME的值在某个地方被写死了，像我的绿色版tomcat在bin文件下多了一个setenv.bat的文件，打开一看果然是在这里面被写死了CATALINA_HOME的路径，这应该是为了某种原因被人后加上的设置文件，把这个文件删除之后，tomcat可以正常运行了。
