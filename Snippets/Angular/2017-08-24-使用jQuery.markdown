@@ -1,5 +1,15 @@
 - 使用了angular2为什么还需要使用jQuery?有一些情况下，我们仍然要使用jQuery，比如重用一些jQuery代码或组件时，不可能用angular2改写一切。
 ```javascript
+import 'jquery';
+import 'moment';
+import 'fullcalendar';
+
+@NgModule({
+    ...
+})
+```
+```javascript
+// home.component.ts
 import {Component} from 'angular2/core';
  
 declare var jQuery:any;

@@ -1,0 +1,2 @@
+### package.json的dependencies出现了很多^ ~ 带头的字符，解析如下:
+https://stackoverflow.com/questions/22343224/whats-the-difference-between-tilde-and-caret-in-package-json
